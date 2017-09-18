@@ -68,23 +68,21 @@ Bundle 'NeoComplCache'
 "Bundle 'Rip-Rip/clang_complete'
 
 Bundle 'kien/ctrlp.vim'
-Bundle 'itchyny/lightline.vim'
+"Bundle 'itchyny/lightline.vim'
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 Bundle 'rakr/vim-two-firewatch'
-Bundle 'atelierbram/Base2Tone-vim'
-Bundle 'joshdick/onedark.vim'
 Bundle 'tyrannicaltoucan/vim-quantum'
 Bundle 'tyrannicaltoucan/vim-deep-space'
-Bundle 'rakr/vim-one'
-Bundle 'roosta/vim-srcery'
 Bundle 'MarcWeber/vim-addon-background-cmd'
-Bundle 'iamcco/mathjax-support-for-mkdp'
-Bundle 'iamcco/markdown-preview.vim'
-"Bundle 'gabrielelana/vim-markdown'
-"Bundle 'L9'
 "theme
 Bundle 'NLKNguyen/papercolor-theme'
 Bundle 'playroom'
 Bundle 'saturn.vim'
+Bundle 'joshdick/onedark.vim'
+Bundle 'atelierbram/Base2Tone-vim'
+Bundle 'rakr/vim-one'
+Bundle 'roosta/vim-srcery'
 
 call vundle#end()	            " required!
 filetype plugin indent on       " required!
@@ -291,29 +289,30 @@ if expand("%:e") ==? "cisco"
     set linespace=2
 endif
 
-let g:lightline = {
-            \ 'colorscheme': 'PaperColor',
-            \ 'component': {
-            \   'lineinfo': ' %3l:%-2v',
-            \ },
-            \ 'component_function': {
-            \   'readonly': 'LightLineReadonly',
-            \   'fugitive': 'LightLineFugitive'
-            \ },
-            \ 'separator': { 'left': '', 'right': '' },
-            \ 'subseparator': { 'left': '', 'right': '' }
-            \ }
+"--------------------------------------------------------------------------
+"vim-airline
+"--------------------------------------------------------------------------
+let g:airline_theme="solarized" 
+"这个是安装字体后 必须设置此项" 
+let g:airline_powerline_fonts = 1  
 
-function! LightLineReadonly()
-    return &readonly ? '' : ''
-endfunction
-function! LightLineFugitive()
-    if exists('*fugitive#head')
-        let branch = fugitive#head()
-        return branch !=# '' ? ''.branch : ''
-    endif
-    return ''
-endfunction
+" 关闭状态显示空白符号计数
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#symbol = '!'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+" old vim-powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.whitespace = 'Ξ'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "注释颜色
