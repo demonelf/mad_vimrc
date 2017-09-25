@@ -20,9 +20,9 @@ let g:colors_name = "hemisu"
 " The Colors -----------------------------------------------{{{
 " Define reusable colors
 let s:black            = { "gui": "#000000", "cterm": "16"  }
-let s:white            = { "gui": "#FFFFFF", "cterm": "231" }
+let s:white            = { "gui": "#F5F5F5", "cterm": "231" }
 let s:almostWhite      = { "gui": "#EEEEEE", "cterm": "255" }
-let s:almostBlack      = { "gui": "#111111", "cterm": "233" }
+let s:almostBlack      = { "gui": "#5F9EA0", "cterm": "233" }
 let s:middleDarkGrey   = { "gui": "#777777", "cterm": "241" }
 let s:middleLightGrey  = { "gui": "#999999", "cterm": "246" }
 let s:lightGrey        = { "gui": "#BBBBBB", "cterm": "249" }
