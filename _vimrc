@@ -25,7 +25,7 @@ else "在Linux下：
     set rtp+=~/.vim/bundle/vundle/  
     call vundle#rc()
     "字体
-    set guifont=InputMono\ 16
+    set guifont=InputMono\ 15
     set guifontwide=YouYuan\ 14
     " 查看方法输入:Man api_name gvim 乱码
     "source $VIMRUNTIME/ftplugin/man.vim
@@ -248,15 +248,21 @@ syntax on
 "else
 "    set background=dark
 "endif
+set t_Co=256
 "set background=dark
 "set background=light
 "colorscheme saturn
+"colorscheme onedark
+
 "let g:quantum_black = 1
 "colorscheme quantum
+
 "colorscheme saturn
+
 "colorscheme molokai
 "let g:molokai_original = 1
 "let g:rehash256 = 1
+
 "colorscheme solarized
 "rscheme material-theme
 "colorscheme soda
@@ -298,7 +304,6 @@ if expand("%:e") ==? "cisco"
     set linespace=2
 endif
 
-"colorscheme hemisu
 colorscheme onedark
 set cursorline
 "hi CursorLine  cterm=NONE   ctermbg=darkred ctermfg=white
