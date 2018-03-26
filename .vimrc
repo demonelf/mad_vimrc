@@ -13,8 +13,8 @@ if has("win32")
     " 此处规定Vundle的路径  
     set rtp+=$VIM/vimfiles/bundle/vundle/  
     call vundle#rc('$VIM/vimfiles/bundle/')  
-    set guifont=InputMono:h16:cANSI
-    "set guifont=Consolas:h16:cANSI
+    set guifont=IosevkaCC:h16:cANSI
+    "set guifont=Consolas:h16:b:cANSI
     set guifontwide=YouYuan:h14:cGB2312,Microsoft_Yahei:h16:cGB2312
     "解决菜单乱码   
     source $VIMRUNTIME/delmenu.vim   
@@ -25,8 +25,8 @@ else "在Linux下：
     set rtp+=~/.vim/bundle/vundle/  
     call vundle#rc()
     "字体
-    set guifont=InputMono\ 16
-    set guifontwide=YouYuan\ 14
+    set guifont=IosevkaCC\ 18
+    set guifontwide=YouYuan\ 16
     " 查看方法输入:Man api_name gvim 乱码
     "source $VIMRUNTIME/ftplugin/man.vim
     " 映射之后就可以少按一下 Shift 键。
@@ -56,16 +56,22 @@ Bundle 'taglist.vim'
 Bundle 'c.vim'
 Bundle 'momota/cisco.vim'
 Bundle 'snipMate'
+Bundle 'majutsushi/tagbar'
 
-"结构体补全 按照级别排序
+"代码补全 按照级别排序
+"clang_complete 包含代码补全和跳转
+"Bundle 'rip-rip/clang_complete'
 "Bundle 'AutoComplPop'
 "omni利用ctags支持结构体补全
 Bundle 'OmniCppComplete' 
 Bundle 'kanwar-saad/gtagsomnicomplete'
-Bundle 'NeoComplCache'
+
+"上下文补全
+Bundle 'NeoComplCache'  
 "neocomplete需要lua
 "Bundle 'Shougo/neocomplete.vim'
-"Bundle 'Rip-Rip/clang_complete'
+
+"文件搜索
 Bundle 'kien/ctrlp.vim'
 
 "Bundle 'itchyny/lightline.vim'
@@ -84,6 +90,7 @@ Bundle 'rakr/vim-one'
 Bundle 'roosta/vim-srcery'
 Bundle 'trevordmiller/nova-vim'
 Bundle 'joshdick/onedark.vim'
+"Bundle 'vimim/vimim'
 
 call vundle#end()	            " required!
 filetype plugin indent on       " required!
@@ -248,15 +255,21 @@ syntax on
 "else
 "    set background=dark
 "endif
+set t_Co=256
 "set background=dark
 "set background=light
 "colorscheme saturn
+"colorscheme onedark
+
 "let g:quantum_black = 1
 "colorscheme quantum
+
 "colorscheme saturn
+
 "colorscheme molokai
 "let g:molokai_original = 1
 "let g:rehash256 = 1
+
 "colorscheme solarized
 "rscheme material-theme
 "colorscheme soda
@@ -281,7 +294,7 @@ if (has("termguicolors"))
     set termguicolors
 endif
 let g:solarized_termcolors=256
-set background=dark        " for the light version
+set background=light        " for the light version
 let g:one_allow_italics = 1 " I love italic for comments
 ":hi Folded guibg=light guifg=grey40 ctermfg=grey ctermbg=darkgrey
 ":hi FoldColumn guibg=black guifg=grey20 ctermfg=4 ctermbg=7
@@ -298,15 +311,23 @@ if expand("%:e") ==? "cisco"
     set linespace=2
 endif
 
-"colorscheme hemisu
-colorscheme onedark
+colorscheme wwdc17
+"colorscheme pencil
+"colorscheme onedark
 set cursorline
 "hi CursorLine  cterm=NONE   ctermbg=darkred ctermfg=white
 "hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
+"插入模式时是红色
+"au InsertLeave * hi Cursor gui=red
+"离开插入模式时是绿色
+"au InsertEnter * hi Cursor gui=green
+"光标不闪烁
+"set gcr=a:block-blinkon0
+highlight Cursor guifg=#1faed0 guibg=white
 "--------------------------------------------------------------------------
 "vim-airline
 "--------------------------------------------------------------------------
-let g:airline_theme="onedark" 
+let g:airline_theme="pencil" 
 "这个是安装字体后 必须设置此项" 
 let g:airline_powerline_fonts = 1  
 
@@ -378,21 +399,23 @@ let g:C_TypeOfH = "c"           " *.h文件的文件类型是C还是C++
 "endif
 
 "-- omnicppcomplete setting --
-highlight Pmenu    guibg=lightgrey  guifg=black
-highlight PmenuSel guibg=darkgrey guifg=black
+highlight Pmenu    guibg=LightYellow  guifg=black
+highlight PmenuSel guibg=LightRed   guifg=black
 
 "autocmd FileType c set omnifunc=gtagsomnicomplete#Complete
 
 "set omnifunc=syntaxcomplete#Complete
+set completeopt=longest,menu
 let OmniCpp_MayCompleteDot      = 1 " autocomplete with .
 let OmniCpp_MayCompleteArrow    = 1 " autocomplete with ->
-let OmniCpp_MayCompleteScope    = 0 " autocomplete with ::
+let OmniCpp_MayCompleteScope    = 1 " autocomplete with ::
 let OmniCpp_SelectFirstItem     = 2 " select first item (but don't insert)
 let OmniCpp_NamespaceSearch     = 2 " search namespaces in this and included files
 let OmniCpp_ShowPrototypeInAbbr = 1 " show function prototype  in popup window
 let OmniCpp_GlobalScopeSearch   = 1
 let OmniCpp_DisplayMode=0 "类成员显示控制(是否显示全部公有(public)私有(private)保护(protected)成员)。 0 : 自动; 1 : 显示所有成员 
-let OmniCpp_DefaultNamespaces=["std"]
+let OmniCpp_DefaultNamespaces=["std", "_GLIBCXX_STD"]
+
 
 
 " 自动关闭补全窗口
@@ -440,7 +463,8 @@ map <S-F8> m`#``
 let g:winManagerWidth        = 24
 let g:NERDTree_title         = "[NERDTree]"
 let g:winManagerWindowLayout = "NERDTree|TagList"
-"let g:winManagerWindowLayout = "TagList"
+"let g:winManagerWindowLayout = "NERDTree|Tagbar"
+"let g:winManagerWindowLayout = "NERDTree"
 function! NERDTree_Start()    
     exec 'NERDTree'    
 endfunction    
@@ -448,7 +472,7 @@ endfunction
 function! NERDTree_IsValid()    
     return 1    
 endfunction   
-nmap <silent> <F12> :WMToggle<cr>
+"nmap <silent> <F12> :WMToggle<cr>
 
 "这个版本的Winmanager好像有个小bug，你在打开Winmanager界面时，
 "会同时打开一个空的文件。这会影响后续使用，
@@ -484,20 +508,36 @@ let Tlist_Exit_OnlyWindow           =1  " 如果Taglist窗口是最后一个窗�
 let Tlist_Use_Right_Window          =1  " 在左侧窗口中显示
 let Tlist_File_Fold_Auto_Close      =1  " 自动折叠
 let Tlist_GainFocus_On_ToggleOpen   =0  " 打开taglist窗口时，如果希望输入焦点在taglist窗口中
-let Tlist_Process_File_Always       =1	" 始终解析文件中的tag，不管taglist窗口有没有打开
+let Tlist_Process_File_Always       =0	" 始终解析文件中的tag，不管taglist窗口有没有打开
 let Tlist_Inc_Winwidth              =0	" 不扩大窗口
 let Tlist_WinWidth                  =24
 
+" tagbar
+"设置tagbar使用的ctags的插件,必须要设置对    
+"let g:tagbar_vertical = 30"  
+let g:tagbar_updateonsave_maxlines  = 1	"文件保存时自动更新tagbar
+let g:tagbar_ctags_bin              ='/usr/bin/ctags' 
+let g:tagbar_compact                = 1	"隐藏最上方的帮助提示
+let g:tagbar_width                  = 25 
+let g:tagbar_left                   = 1  
+let g:tagbar_sort                   = 0
+
+"let g:Tagbar_title = "[Tagbar]"
+map <F11> :TagbarToggle<CR>  
+
 "TreeToggle
-"map <F12> :NERDTreeToggle<CR>
-"imap <F12> <ESC>:NERDTreeToggle<CR>
+map <F12> :NERDTreeToggle<CR>
+imap <F12> <ESC>:NERDTreeToggle<CR>
 "map <C-F12> :TlistToggle<CR>
 "map <F12> :NERDTreeToggle<CR>
 "map <C-F12> :WMToggle<CR>
 
-let NERDTreeWinPos='left'
+let NERDTreeWinPos='right'
 let NERDTreeIgnore = ['cscope.files','GPATH','GRTAGS','GTAGS','tags','.*\.o$','.*\.ko$','.*\.gz$']
 let NERDTreeWinSize= 26
+""修改树的显示图标
+let g:NERDTreeDirArrowExpandable = '▌'
+let g:NERDTreeDirArrowCollapsible = 'Ξ'
 
 "ctrlp 
 let g:ctrlp_map                     = '<c-p>'
@@ -523,8 +563,8 @@ let g:miniBufExplMaxSize            = 2		"窗口最大高度
 " MiniBufExpl Colors
 "hi MBENormal                 guifg=#F5F5F5   guibg=#4271ae
 "hi MBEChanged                guifg=#eeeeee   guibg=#4271ae
-hi MBEVisibleNormal          guifg=#282C34   guibg=#98C379
-hi MBEVisibleChanged         guifg=#282C34   guibg=#98C379
+hi MBEVisibleNormal          guifg=#282C34   guibg=#4FB8CC
+hi MBEVisibleChanged         guifg=#282C34   guibg=#4FB8CC
 "允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
 "防止上下分屏
 set hidden
@@ -537,8 +577,16 @@ else
     map <silent> <F3> :silent !gnome-terminal &<CR>
 endif
 
+
+"屏蔽系统输入法
+"set imactivatekey=C-space
+
+"合并系统剪切板 xsel
+set clipboard=unnamed,unnamedplus
+
 "用空格键来开关折叠
 nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+
 
 "全屏显示
 if has("win32")
@@ -563,7 +611,7 @@ if has("win32")
 else
     function! UPDATE_TAGS()
         let _f_ = expand("%:p")
-        exec 'silent !ctags -R --append=no -n -f ' . '' . g:ProjDir . '' . '/tags --c++-kinds=+p --fields=+iaS --extra=+q ' . '' . _f_ . ''
+        exec 'silent !ctags --append=yes --sort=yes --excmd=pattern -f ' . '' . g:ProjDir . '' . '/tags --c++-kinds=+p --fields=+iaS --extra=+q ' . '' . _f_ . ''
         exec 'silent !cd ' . '' . g:ProjDir . '' . '&&gtags --single-update ' . '' . _f_ . ''
         unlet _f_
     endfunction
@@ -618,6 +666,9 @@ endif
 "递归当前根目录
 set autochdir
 set tags+=tags;
+set tags+=~/.vim/tags/cpp_src/tags
+"set tags+=~/.vim/tags/gl
+"set tags+=~/.vim/tags/fl
 
 filetype on
 filetype plugin on
