@@ -51,8 +51,8 @@ set keywordprg=sdcv         "按K键查找光标处单词的帮助，默认是ma
 set nocp
 set nocompatible
 
-let $VIMRUNTIME="~/.vim/"  
-set runtimepath=~/.vim/
+"let $VIMRUNTIME="~/.vim/"  
+"set runtimepath=~/.vim/
 source $VIMRUNTIME/vimrc_example.vim
 
 "在normal模式下使用系统剪贴板(例如用y复制时)
@@ -535,6 +535,8 @@ else
             set cscopeverbose
         else
             exec "silent !find $PWD -type f > cscope.files"
+            exec "silent !find $PWD -type d -name \"include\"> .clang_complete_tmp"
+            exec "silent !sed 's/^/-I&/g' .clang_complete_tmp > .clang_complete && rm .clang_complete_tmp"
             "exec "silent !ctags -a -n -R -I --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ --tag-relative=yes -L cscope.files"
             exec "silent !gtags -f cscope.files"
             cscope reset
