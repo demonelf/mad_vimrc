@@ -1,8 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"疯狂十六进制配置文件
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"==============================编码================================="
+"=================================编码===================================="
 set encoding        =utf-8 
 set termencoding    =utf-8 
 set fileencoding    =utf-8 
@@ -37,79 +33,9 @@ else "在Linux下：
     "cd /usr/share/vim/vim72/lang
     "sudo ln -s menu_zh_cn.utf-8.vim menu_zh_cn.utf8.vim
 endif
-"==============================编码================================="
+"=================================编码===================================="
 
-"==============================Vundle================================="
-set nocompatible              " be iMproved, required
-filetype off                  " required
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-" original repos on github<br>Bundle 'mattn/zencoding-vim'  
-"Bundle 'drmingdrmer/xptemplate'  
-
-" vim-scripts repos  
-Bundle 'scrooloose/nerdtree'  
-Bundle 'minibufexpl.vim'
-Bundle 'winmanager' 
-Bundle 'taglist.vim'
-Bundle 'c.vim'
-Bundle 'momota/cisco.vim'
-Bundle 'snipMate'
-Bundle 'majutsushi/tagbar'
-
-"代码补全 按照级别排序
-"clang_complete 包含代码补全和跳转
-"Bundle 'rip-rip/clang_complete'
-"Bundle 'AutoComplPop'
-"omni利用ctags支持结构体补全
-Bundle 'OmniCppComplete' 
-Bundle 'kanwar-saad/gtagsomnicomplete'
-
-"上下文补全
-Bundle 'NeoComplCache'  
-"neocomplete需要lua
-"Bundle 'Shougo/neocomplete.vim'
-
-"文件搜索
-Bundle 'kien/ctrlp.vim'
-
-"Bundle 'itchyny/lightline.vim'
-Bundle 'vim-airline/vim-airline'
-Bundle 'vim-airline/vim-airline-themes'
-Bundle 'rakr/vim-two-firewatch'
-Bundle 'tyrannicaltoucan/vim-quantum'
-Bundle 'tyrannicaltoucan/vim-deep-space'
-Bundle 'MarcWeber/vim-addon-background-cmd'
-"theme
-Bundle 'NLKNguyen/papercolor-theme'
-Bundle 'playroom'
-Bundle 'saturn.vim'
-Bundle 'atelierbram/Base2Tone-vim'
-Bundle 'rakr/vim-one'
-Bundle 'roosta/vim-srcery'
-Bundle 'trevordmiller/nova-vim'
-Bundle 'joshdick/onedark.vim'
-"Bundle 'vimim/vimim'
-
-call vundle#end()	            " required!
-filetype plugin indent on       " required!
-"bundle分为三类：https://github.com/vim-scripts
-"1.在Github vim-scripts 用户下的repos,只需要写出repos名称
-"2.在Github其他用户下的repos, 需要写出"用户名/repos名"
-"3.不在Github上的插件，需要写出git全路径
-"
-" Brief help  -- 此处后面都是vundle的使用命令
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
-"==============================Vundle================================="
-
-"==============================系统================================="
+"=================================系统===================================="
 "鼠标的行为是Windows风格 -会影响块模式
 "source $VIMRUNTIME/mswin.vim
 "behave mswin 
@@ -124,6 +50,9 @@ set keywordprg=sdcv         "按K键查找光标处单词的帮助，默认是ma
 "关闭了vi兼容模式，并允许进行文件类型检测
 set nocp
 set nocompatible
+
+let $VIMRUNTIME="~/.vim/"  
+set runtimepath=~/.vim/
 source $VIMRUNTIME/vimrc_example.vim
 
 "在normal模式下使用系统剪贴板(例如用y复制时)
@@ -199,23 +128,18 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
 set showcmd
 "水平滚动
 set guioptions+=b
-
 set lines=28 columns=84
 
-"-----------------------光标样式-----------------------------
-"显示坐标
-"sorline cursorcolumn 
-"set gcr=a:block-blinkon0
 " 设置代码折叠
 set foldenable
 "如果发现文件类型为c或cpp，就启用折叠功能
 "autocmd FileType c,cpp setl fdm=syntax | setl fen
 "set foldmethod=syntax
 
+set fdm=syntax          "用语法高亮来定义折叠
 "set fdm=manual          "手工定义折叠
 "set fdm=indent          "更多的缩进表示更高级别的折叠
 "set fdm=expr            "用表达式来定义折叠
-set fdm=syntax          "用语法高亮来定义折叠
 "set fdm=diff            "对没有更改的文本进行折叠
 "set fdm=marker          "对文中的标志折叠
 
@@ -224,96 +148,9 @@ set fdm=syntax          "用语法高亮来定义折叠
 "c,cpp缩进
 "set cindent
 
-"set cscopequickfix=c-,d-,e-,f-,g0,i-,s-,t-
-"let g:GtagsCscope_Auto_Load = 1
-"let g:GtagsCscope_Auto_Map = 1
-"set cscopeprg   =cscope
-"set csprg       =cscope
-"原因是/etc/vimrc中已经将cscope.out读入，在plugin中也读了一遍，这样就有两遍
-set nocscopeverbose
-set cscopetag
-set cscopeprg   =gtags-cscope
-set csprg       =gtags-cscope
-let g:GtagsCscope_Absolute_Path = 1
-let g:ProjDir=getcwd()
+"合并系统剪切板 xsel
+set clipboard=unnamed,unnamedplus
 
-
-"==============================系统================================="
-
-
-"==============================主题和样式================================="
-
-"--------------------------"
-"语法高亮
-"colorscheme desert
-syntax enable
-syntax on
-"--------------------------"
-"设置主题 http://www.vi-improved.org/color_sampler_pack/
-"if has('gui_running')
-"    set background=light
-"else
-"    set background=dark
-"endif
-set t_Co=256
-"set background=dark
-"set background=light
-"colorscheme saturn
-"colorscheme onedark
-
-"let g:quantum_black = 1
-"colorscheme quantum
-
-"colorscheme saturn
-
-"colorscheme molokai
-"let g:molokai_original = 1
-"let g:rehash256 = 1
-
-"colorscheme solarized
-"rscheme material-theme
-"colorscheme soda
-let g:onedark_termcolors=256
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-"colorscheme hemisu
-if (has("termguicolors"))
-    set termguicolors
-endif
-let g:solarized_termcolors=256
-set background=light        " for the light version
-let g:one_allow_italics = 1 " I love italic for comments
-":hi Folded guibg=light guifg=grey40 ctermfg=grey ctermbg=darkgrey
-":hi FoldColumn guibg=black guifg=grey20 ctermfg=4 ctermbg=7
-
-"let g:deepspace_italics = 1
-let solarized_underline = 0
-"文件信息栏七彩主题
-"colorscheme statusline
-let g:two_firewatch_italics=1
-
-if expand("%:e") ==? "cisco" 
-    set background=dark
-    colorscheme two-firewatch
-    set linespace=2
-endif
-
-colorscheme wwdc17
-"colorscheme pencil
-"colorscheme onedark
 set cursorline
 "hi CursorLine  cterm=NONE   ctermbg=darkred ctermfg=white
 "hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
@@ -324,6 +161,107 @@ set cursorline
 "光标不闪烁
 "set gcr=a:block-blinkon0
 highlight Cursor guifg=#1faed0 guibg=white
+
+"屏蔽系统输入法
+"set imactivatekey=C-space
+filetype on
+filetype plugin on
+filetype indent on
+"=================================系统===================================="
+"
+"================================Vundle==================================="
+set nocompatible              " be iMproved, required
+filetype off                  " required
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+" original repos on github<br>Bundle 'mattn/zencoding-vim'  
+"Bundle 'drmingdrmer/xptemplate'  
+
+" vim-scripts repos  
+Bundle 'scrooloose/nerdtree'  
+Bundle 'minibufexpl.vim'
+"Bundle 'winmanager' 
+Bundle 'taglist.vim'
+Bundle 'c.vim'
+Bundle 'momota/cisco.vim'
+Bundle 'snipMate'
+Bundle 'majutsushi/tagbar'
+
+"代码补全 按照级别排序
+"clang_complete 包含代码补全和跳转
+Bundle 'rip-rip/clang_complete'
+"Bundle 'AutoComplPop'
+"omni利用ctags支持结构体补全
+"Bundle 'OmniCppComplete' 
+"Bundle 'kanwar-saad/gtagsomnicomplete'
+
+"上下文补全
+Bundle 'NeoComplCache'  
+Bundle 'osyo-manga/neocomplcache-clang_complete'
+"neocomplete需要lua
+"Bundle 'Shougo/neocomplete.vim'
+
+"文件搜索
+Bundle 'kien/ctrlp.vim'
+
+"Bundle 'itchyny/lightline.vim'
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
+Bundle 'rakr/vim-two-firewatch'
+Bundle 'tyrannicaltoucan/vim-quantum'
+Bundle 'tyrannicaltoucan/vim-deep-space'
+Bundle 'MarcWeber/vim-addon-background-cmd'
+"theme
+Bundle 'lifepillar/vim-wwdc17-theme'
+Bundle 'NLKNguyen/papercolor-theme'
+Bundle 'playroom'
+Bundle 'saturn.vim'
+Bundle 'atelierbram/Base2Tone-vim'
+Bundle 'rakr/vim-one'
+Bundle 'trevordmiller/nova-vim'
+Bundle 'joshdick/onedark.vim'
+"Bundle 'vimim/vimim'
+
+call vundle#end()	            " required!
+filetype plugin indent on       " required!
+"bundle分为三类：https://github.com/vim-scripts
+"1.在Github vim-scripts 用户下的repos,只需要写出repos名称
+"2.在Github其他用户下的repos, 需要写出"用户名/repos名"
+"3.不在Github上的插件，需要写出git全路径
+"
+" Brief help  -- 此处后面都是vundle的使用命令
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+"================================Vundle==================================="
+
+
+"==============================主题和样式================================="
+"--------------------------"
+"语法高亮
+"colorscheme desert
+syntax enable
+syntax on
+"--------------------------"
+set background=light        " for the light version
+let g:two_firewatch_italics=1
+if expand("%:e") ==? "cisco" 
+    set background=dark
+    colorscheme two-firewatch
+    set linespace=2
+endif
+
+let g:wwdc17_frame_color = 10
+let g:wwdc17_transp_bg = 1
+colorscheme wwdc17
+"colorscheme pencil
+"colorscheme onedark
+"colorscheme statusline
 "--------------------------------------------------------------------------
 "vim-airline
 "--------------------------------------------------------------------------
@@ -338,15 +276,15 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 " old vim-powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
+let g:airline_left_sep           = ''
+let g:airline_left_alt_sep       = ''
+let g:airline_right_sep          = ''
+let g:airline_right_alt_sep      = ''
+let g:airline_symbols.branch     = ''
+let g:airline_symbols.readonly   = ''
+let g:airline_symbols.linenr     = ''
+let g:airline_symbols.paste      = 'ρ'
+let g:airline_symbols.paste      = 'Þ'
 let g:airline_symbols.whitespace = 'Ξ'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -362,82 +300,22 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 "==============================主题和样式================================="
 
+"==============================代码注释==================================="
 "--------------------------------------------------------------------------------
 " CVim :help csupport
 "--------------------------------------------------------------------------------
-let g:C_Comments		= "yes"         " 用C++的注释风格
-let g:C_BraceOnNewLine	= "yes"         " '{'是否独自一行
-let g:C_AuthorName		= "Demonelf"
-let g:C_Project			= "F9"
+let g:C_Comments		    = "yes"         " 用C++的注释风格
+let g:C_BraceOnNewLine	    = "yes"         " '{'是否独自一行
+let g:C_AuthorName		    = "Demonelf"
+let g:C_Project			    = "F9"
 let g:Cpp_Template_Function	= "c-function-description-demonelf"
-let g:C_TypeOfH = "c"           " *.h文件的文件类型是C还是C++
+let g:C_TypeOfH             = "c"           " *.h文件的文件类型是C还是C++
 "let g:C_LocalTemplateFile	= $RUNTIME"c-support/templates/Templates"
 "let g:C_GlobalTemplateFile	= $VIMRUNTIME"//..//vimfiles/bundle/c.vim/c-support/templates"
 "let g:C_GuiSnippetBrowser	= 'commandline'
 "let g:C_GuiTemplateBrowser	= 'explorer'
 "let g:C_CreateMenusDelayed	= 'yes'
-"let g:C_LoadMenus		= 'no'
-"============================补全==========================="
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"括号自动补全
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-":inoremap ( ()<ESC>i
-":inoremap ) <c-r>=ClosePair(')')<CR>
-":inoremap { {}<ESC>i
-":inoremap } <c-r>=ClosePair('}')<CR>
-":inoremap [ []<ESC>i
-":inoremap ] <c-r>=ClosePair(']')<CR>
-":inoremap < <><ESC>i
-":inoremap > <c-r>=ClosePair('>')<CR>
-"
-"function ClosePair(char)
-"if getline('.')[col('.') - 1] == a:char
-"return "\<Right>"
-"else
-"return a:char
-"endif
-
-"-- omnicppcomplete setting --
-highlight Pmenu    guibg=LightYellow  guifg=black
-highlight PmenuSel guibg=LightRed   guifg=black
-
-"autocmd FileType c set omnifunc=gtagsomnicomplete#Complete
-
-"set omnifunc=syntaxcomplete#Complete
-set completeopt=longest,menu
-let OmniCpp_MayCompleteDot      = 1 " autocomplete with .
-let OmniCpp_MayCompleteArrow    = 1 " autocomplete with ->
-let OmniCpp_MayCompleteScope    = 1 " autocomplete with ::
-let OmniCpp_SelectFirstItem     = 2 " select first item (but don't insert)
-let OmniCpp_NamespaceSearch     = 2 " search namespaces in this and included files
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function prototype  in popup window
-let OmniCpp_GlobalScopeSearch   = 1
-let OmniCpp_DisplayMode=0 "类成员显示控制(是否显示全部公有(public)私有(private)保护(protected)成员)。 0 : 自动; 1 : 显示所有成员 
-let OmniCpp_DefaultNamespaces=["std", "_GLIBCXX_STD"]
-
-
-
-" 自动关闭补全窗口
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"自动补全AutoComplPop 两个文件，一个是autoload目录下的acp.vim，另一个是plugin下的acp.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:AutoComplPop_Behavior = {
-"\ 'c': [ {'command' : "\<C-x>\<C-o>",
-"\ 'pattern' : ".",
-"\ 'repeat' : 0}
-"\ ]
-"\}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"自动补全NeoComplCache 可代替AutoComplPop但配置复杂
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NeoComplCache_EnableAtStartup    = 1
-let g:neocomplcache_enable_at_startup  = 1
-let g:neocomplcache_enable_auto_select = 1 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:C_LoadMenus		    = 'no'
 
 "代码块的自动补全snipMate
 "let g:snippets_dir = "/usr/share/vim/vimfiles/snippets/"
@@ -445,11 +323,75 @@ let g:neocomplcache_enable_auto_select = 1
 if has("win32")
     let g:snippets_dir = "$VIMRUNTIME//..//vimfiles//bundle//snipMate//snippets"
 endif
+"==============================代码注释==================================="
+"
+"==============================代码补全==================================="
 
-"============================补全==========================="
+"clang complete
+"不显示预览
+set completeopt=longest
+" path to directory where library can be found
+"let g:clang_library_path='/usr/lib/llvm/5/lib64'
+" or path directly to the library file
+let g:clang_use_library = 1
+let g:clang_library_path='/usr/lib/llvm/5/lib64/libclang.so'
+"自动选择第一个匹配项但不插入到代码中
+let g:clang_auto_select         = 1
+"在->. ., ::后自动补全
+let g:clang_complete_auto       = 1
+"发现错误之后打开QuickFix窗口
+let g:clang_complete_copen      = 1
+"高亮警告和错误
+let g:clang_hl_errors           = 1
+"插入第一个补全后关闭预览窗口
+let g:clang_close_preview       = 1
+"开启对C++11的编译支持
+let g:clang_user_options        = 'std=c++11'
+"补全预处理指令，宏和常数，默认为0，不补全
+let g:clang_complete_macros     = 1
+"补全代码模式，比如循环等，默认为0，不补全
+let g:clang_complete_patterns   = 1
+
+"<C-]>跳转到声明
+"let g:clang_jumpto_declaration_key = "<C-]>"
+"<C-t>回跳
+"let g:clang_jumpto_back_key     = "<C-t>"
+"避免和ctrl+],ctrl+t原有的功能冲突
+let g:clang_jumpto_back_key         ="<a-t>"
+let g:clang_jumpto_declaration_key  ="<a-d>"
+
+"<C-w>]在预览窗口中打开声明
+let g:clang_jumpto_declaration_in_preview_key = "<C-w>]"
+"使用UltiSnips进行代码片段补全
+let g:clang_snippets            = 1
+"let g:clang_snippets_engine     = 'ultisnips'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"自动补全NeoComplCache 可代替AutoComplPop但配置复杂
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:NeoComplCache_EnableAtStartup    = 1
+let g:neocomplcache_enable_at_startup  = 1
+let g:neocomplcache_enable_auto_select = 1 
+
+" neocomplcache-clang :help neocomplcache-faq 解决clang_complete和neocomplcache的冲突。
+if !exists('g:neocomplcache_force_omni_patterns')
+  let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_force_omni_patterns.c =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.objc =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.objcpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"==============================代码补全==================================="
 
 
-"============================快捷键=========================="
+"===============================快捷键===================================="
 "保存
 map <C-s> :w<CR>
 
@@ -459,62 +401,11 @@ map <F4> :wqa<CR>
 "高亮
 map <S-F8> m`#``
 
-"设置winmanager的宽度，默认为25 
-let g:winManagerWidth        = 24
-let g:NERDTree_title         = "[NERDTree]"
-let g:winManagerWindowLayout = "NERDTree|TagList"
-"let g:winManagerWindowLayout = "NERDTree|Tagbar"
-"let g:winManagerWindowLayout = "NERDTree"
-function! NERDTree_Start()    
-    exec 'NERDTree'    
-endfunction    
-
-function! NERDTree_IsValid()    
-    return 1    
-endfunction   
-"nmap <silent> <F12> :WMToggle<cr>
-
-"这个版本的Winmanager好像有个小bug，你在打开Winmanager界面时，
-"会同时打开一个空的文件。这会影响后续使用，
-"所以我们要在打开Winmanager时关掉这个空文件。
-"在~/.vim/plugin目录下的winmanager.vim文件中找到以下函数定义
-"并在第5行下添加第6行的内容：
-"     function! <SID>ToggleWindowsManager()
-"        if IsWinManagerVisible()
-"           call s:CloseWindowsManager()
-"        else
-"           call s:StartWindowsManager()
-"           exe 'q'
-"        end
-"     endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"cscope实现Source Insight功能
-"source cscope_maps.Vim
-
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-
-" :Tlist              调用TagList/TagBar
-let Tlist_Show_One_File             =1  " 只显示当前文件的tags
-let Tlist_Exit_OnlyWindow           =1  " 如果Taglist窗口是最后一个窗口则退出Vim
-let Tlist_Use_Right_Window          =1  " 在左侧窗口中显示
-let Tlist_File_Fold_Auto_Close      =1  " 自动折叠
-let Tlist_GainFocus_On_ToggleOpen   =0  " 打开taglist窗口时，如果希望输入焦点在taglist窗口中
-let Tlist_Process_File_Always       =0	" 始终解析文件中的tag，不管taglist窗口有没有打开
-let Tlist_Inc_Winwidth              =0	" 不扩大窗口
-let Tlist_WinWidth                  =24
-
-" tagbar
+"tagbar 比tlist强大些
 "设置tagbar使用的ctags的插件,必须要设置对    
-"let g:tagbar_vertical = 30"  
+map <F11> :TagbarToggle<CR>  
+"let g:Tagbar_title                 = "[Tagbar]"
+"let g:tagbar_vertical              = 30"  
 let g:tagbar_updateonsave_maxlines  = 1	"文件保存时自动更新tagbar
 let g:tagbar_ctags_bin              ='/usr/bin/ctags' 
 let g:tagbar_compact                = 1	"隐藏最上方的帮助提示
@@ -522,22 +413,15 @@ let g:tagbar_width                  = 25
 let g:tagbar_left                   = 1  
 let g:tagbar_sort                   = 0
 
-"let g:Tagbar_title = "[Tagbar]"
-map <F11> :TagbarToggle<CR>  
-
 "TreeToggle
 map <F12> :NERDTreeToggle<CR>
 imap <F12> <ESC>:NERDTreeToggle<CR>
-"map <C-F12> :TlistToggle<CR>
-"map <F12> :NERDTreeToggle<CR>
-"map <C-F12> :WMToggle<CR>
-
-let NERDTreeWinPos='right'
-let NERDTreeIgnore = ['cscope.files','GPATH','GRTAGS','GTAGS','tags','.*\.o$','.*\.ko$','.*\.gz$']
-let NERDTreeWinSize= 26
-""修改树的显示图标
-let g:NERDTreeDirArrowExpandable = '▌'
-let g:NERDTreeDirArrowCollapsible = 'Ξ'
+let NERDTreeQuitOnOpen              = 1
+let NERDTreeWinPos                  ='right'
+let NERDTreeIgnore                  = ['cscope.files','GPATH','GRTAGS','GTAGS','tags','.*\.o$','.*\.ko$','.*\.gz$']
+let NERDTreeWinSize                 = 26
+let g:NERDTreeDirArrowExpandable    = '▌'
+let g:NERDTreeDirArrowCollapsible   = 'Ξ'
 
 "ctrlp 
 let g:ctrlp_map                     = '<c-p>'
@@ -561,14 +445,11 @@ let g:miniBufExplModSelTarget       = 1		"不要在不可编辑内容的窗口�
 let g:miniBufExplorerMoreThanOne    = 1		"
 let g:miniBufExplMaxSize            = 2		"窗口最大高度
 " MiniBufExpl Colors
-"hi MBENormal                 guifg=#F5F5F5   guibg=#4271ae
-"hi MBEChanged                guifg=#eeeeee   guibg=#4271ae
 hi MBEVisibleNormal          guifg=#282C34   guibg=#4FB8CC
 hi MBEVisibleChanged         guifg=#282C34   guibg=#4FB8CC
 "允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
 "防止上下分屏
 set hidden
-
 
 "打开终端
 if has("win32")
@@ -577,16 +458,8 @@ else
     map <silent> <F3> :silent !gnome-terminal &<CR>
 endif
 
-
-"屏蔽系统输入法
-"set imactivatekey=C-space
-
-"合并系统剪切板 xsel
-set clipboard=unnamed,unnamedplus
-
 "用空格键来开关折叠
 nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-
 
 "全屏显示
 if has("win32")
@@ -598,27 +471,32 @@ endif
 function Maximize_Window()
     silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
+"===============================快捷键===================================="
 
-"--------------------------tags---------------------------"
+"===============================cscope===================================="
+"cscope实现Source Insight功能 source cscope_maps.Vim
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+"set cscopequickfix=c-,d-,e-,f-,g0,i-,s-,t-
+"let g:GtagsCscope_Auto_Load = 1
+"let g:GtagsCscope_Auto_Map = 1
+"set cscopeprg   =cscope
+"set csprg       =cscope
+"原因是/etc/vimrc中已经将cscope.out读入，在plugin中也读了一遍，这样就有两遍
+set nocscopeverbose
+set cscopetag
+set cscopeprg   =gtags-cscope
+set csprg       =gtags-cscope
+let g:GtagsCscope_Absolute_Path = 1
+let g:ProjDir=getcwd()
+
 "或者这个vim-addon-background-cmd 又或者装这个AutoTag插件，要求Vim6，且编译时要支持python。
-if has("win32")
-    function! UPDATE_TAGS()
-        let _f_ = expand("%:p")
-        exec 'silent !start /min ctags --append=yes --sort=yes --excmd=pattern -f ' . '' . g:ProjDir . '' . '\tags --c++-kinds=+p --fields=+iaS --extra=+q ' . '' . _f_ . ''
-        exec 'silent !start /min global --single-update ' . '' . _f_ . ''
-        unlet _f_
-    endfunction
-else
-    function! UPDATE_TAGS()
-        let _f_ = expand("%:p")
-        exec 'silent !ctags --append=yes --sort=yes --excmd=pattern -f ' . '' . g:ProjDir . '' . '/tags --c++-kinds=+p --fields=+iaS --extra=+q ' . '' . _f_ . ''
-        exec 'silent !cd ' . '' . g:ProjDir . '' . '&&gtags --single-update ' . '' . _f_ . ''
-        unlet _f_
-    endfunction
-endif
-
-"set tags+=tags			"当前目录下
-"set tags+=$HOME/ctags		"F11叠加的tag
 if has("win32")
     if "makefile" ==? expand("%")
         autocmd BufWritePost *.cpp,*.cc,*.h,*.c call UPDATE_TAGS()
@@ -629,18 +507,24 @@ if has("win32")
             set cscopeverbose
         else
             exec "silent !dir /s /b *.s *.S *.c *.h *.cc *.cpp *.hpp *.s > gtags.files"
-            exec "silent !ctags -a -n -R -I --c++-kinds=+p --fields=+iaS --extra=+q --tag-relative=yes -L gtags.files"
+            "exec "silent !ctags -a -n -R -I --c++-kinds=+p --fields=+iaS --extra=+q --tag-relative=yes -L gtags.files"
             exec "silent !gtags"
             cscope reset
             set nocscopeverbose
             exe "cs add GTAGS " . g:ProjDir
             set cscopeverbose
         endif
+        if $CSCOPE_DB  != ""
+            cs add $CSCOPE_DB
+        endif
     endif
 
-    if $CSCOPE_DB  != ""
-        cs add $CSCOPE_DB
-    endif
+    function! UPDATE_TAGS()
+        let _f_ = expand("%:p")
+        "exec 'silent !start /min ctags --append=yes --sort=yes --excmd=pattern -f ' . '' . g:ProjDir . '' . '\tags --c++-kinds=+p --fields=+iaS --extra=+q ' . '' . _f_ . ''
+        exec 'silent !start /min global --single-update ' . '' . _f_ . ''
+        unlet _f_
+    endfunction
 else
     if "makefile" ==? expand("%")
         autocmd BufWritePost *.cpp,*.cc,*.h,*.c call UPDATE_TAGS()
@@ -651,8 +535,8 @@ else
             set cscopeverbose
         else
             exec "silent !find $PWD -type f > cscope.files"
+            "exec "silent !ctags -a -n -R -I --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ --tag-relative=yes -L cscope.files"
             exec "silent !gtags -f cscope.files"
-            exec "silent !ctags -a -n -R -I --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ --tag-relative=yes -L cscope.files"
             cscope reset
             set nocscopeverbose
             exe "cs add GTAGS " . g:ProjDir
@@ -662,6 +546,13 @@ else
             cs add $CSCOPE_DB
         endif
     endif
+
+    function! UPDATE_TAGS()
+        let _f_ = expand("%:p")
+        "exec 'silent !ctags --append=yes --sort=yes --excmd=pattern -f ' . '' . g:ProjDir . '' . '/tags --c++-kinds=+p --fields=+iaS --extra=+q ' . '' . _f_ . ''
+        exec 'silent !cd ' . '' . g:ProjDir . '' . '&&gtags --single-update ' . '' . _f_ . ''
+        unlet _f_
+    endfunction
 endif
 "递归当前根目录
 set autochdir
@@ -669,13 +560,9 @@ set tags+=tags;
 set tags+=~/.vim/tags/cpp_src/tags
 "set tags+=~/.vim/tags/gl
 "set tags+=~/.vim/tags/fl
-
-filetype on
-filetype plugin on
-filetype indent on
-"============================快捷键=========================="
+"===============================cscope===================================="
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"疯狂十六进制配置文件 2015-5-10
+"疯狂十六进制配置文件 2018-3-26
 "最新配置请在官方网站下载:www.madhex.com
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
